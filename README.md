@@ -55,16 +55,18 @@ npm install -g aws-cdk
    ```
    
    CDK project is initalized
+   
+   
    <img width="355" alt="image" src="https://github.com/user-attachments/assets/b32f8744-74da-40d9-9291-cd05fdcc2537" />
 
 
-3. Install dependencies for the CDK constructs we'll use:
+4. Install dependencies for the CDK constructs we'll use:
 
    ```bash
    npm install @aws-cdk/aws-s3 @aws-cdk/aws-s3-deployment
    ```
 
-4. Verify the setup by synthesizing the stack:
+5. Verify the setup by synthesizing the stack:
 
    ```bash
    cdk synth
