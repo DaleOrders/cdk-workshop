@@ -91,6 +91,10 @@ cp -r ~/Downloads/html5up-dimension $(pwd)/website/
 
 ## Step 3: Write CDK Code to Host the Website
 
+**Architecture**:
+
+![alt text](image-6.png)
+
 1. **Configure the region as ap-southeast-2**:
 
 Edit the `bin/cdk-workshop.ts` to explicity set the aws region to be ap-southeast-2:
@@ -194,7 +198,11 @@ During deployment, the CDK will output the URL for the hosted website. You can a
 
 ## Step 6: Update the S3 website to use Cloudfront and re-deploy
 
-2. **Update the `lib/cdk-s3-website-stack.ts` file to include CloudFront**:
+1. **Architecture**:
+
+![alt text](image-7.png)
+
+1. **Update the `lib/cdk-s3-website-stack.ts` file to include CloudFront**:
 
 ```typescript
 import * as cdk from 'aws-cdk-lib';
