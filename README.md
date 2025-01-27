@@ -4,7 +4,7 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 
 - Initializing a basic AWS CDK project structure.
 - Defining infrastructure as code (IaC) with TypeScript.
-- Creating AWS resources necessary for hosting a static website.
+- Creating AWS resources necessary for hosting a static website using S3 and Cloudfront.
 - Deploying the website to AWS.
 
 
@@ -77,15 +77,19 @@ CDK Dependencies as shown in the package.json file
 
 1. **Download the website template from [html5up.net](https://html5up.net/dimension/download)**:
 
-2. unzip the file, navigate to the folder and manually copy all the files to a new folder called 'website' in your project or run the following command.
+2. unzip the file, navigate to the folder and either manually copy all the files to a new folder called 'website' in your project or run the following command.
 
 ```bash
 cp -r ~/Downloads/html5up-dimension $(pwd)/website/
 ```
+
+
 ![alt text](image-1.png)
 ---
 
 ## Step 3: Write CDK Code to Host the Website
+
+1. **Configure the region as ap-southeast-2**:
 
 Edit the `bin/cdk-workshop.ts` to explicity set the aws region to be ap-southeast-2:
 
@@ -99,6 +103,10 @@ new S3StaticWebsiteStack (app, 'CdkWorkshopStack', {
 env: { region: 'ap-southeast-2' },
 });
 ```
+
+Note that the app imports the `S3StaticWebsiteStack` stack from `lib/cdk-s3-website-stack.ts`
+
+2. **Configure the `S3StaticWebsiteStack` stack**:
 
 Edit the `lib/cdk-s3-website-stack.ts` file to define the an S3 bucket and deploy the website under './website' folder:
 
@@ -164,7 +172,7 @@ cdk bootstrap
 cdk synth
    ```
 
-Go to the manifest file `cdk.out/CdkWorkshopStack.template.json` to see the cloudformation template.
+Go to the manifest file `cdk.out/CdkWorkshopStack.template.json` to see the cloudformation template that has been generated from the `S3StaticWebsiteStack` stack.
 
 ![alt text](image-3.png)
 
@@ -276,7 +284,7 @@ To avoid incurring unnecessary charges, delete the stack.
 
 ## Conclusion
 
-This project demonstrated how to use AWS CDK with TypeScript to deploy a simple static website on AWS. The focus was on showcasing the CDK’s capabilities for infrastructure provisioning and deployment automation. You can now customize and expand upon this setup for more complex use cases.
+This project demonstrated how to use AWS CDK with TypeScript to deploy a simple static website on AWS using S3 and Cloudfront. The focus was on showcasing the CDK’s capabilities for infrastructure provisioning and deployment automation. You can now customize and expand upon this setup for more complex use cases.
 
 ---
 
