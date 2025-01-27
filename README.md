@@ -82,7 +82,7 @@ CDK Dependencies as shown in the package.json file
 ```bash
 cp -r ~/Downloads/html5up-dimension $(pwd)/website/
 ```
-
+![alt text](image-1.png)
 ---
 
 ## Step 3: Write CDK Code to Host the Website
@@ -158,6 +158,7 @@ Run the following commands to deploy your website:
    cdk bootstrap
    ```
 
+![alt text](image-2.png)
 
 2. **Synthethize the cloudtemplate template**:
 
@@ -165,11 +166,31 @@ Run the following commands to deploy your website:
    cdk synth
    ```
 
+Go to the manifest file `cdk.out/CdkWorkshopStack.template.json` to see the cloudformation template.
 
+![alt text](image-3.png)
+
+3. **Deploy the CDK application**:
+
+   ```bash
+   cdk deploy
+   ```
+Do you wish to deploy these changes (y/n)? type y
+
+![alt text](image-4.png)
 
 During deployment, the CDK will output the URL for the hosted website. You can access your site using this URL.
 
 ---
+
+## Step 7: Update the S3 website to use Cloudfront and re-deploy
+
+2. **Synthethize the cloudtemplate template**:
+
+   ```bash
+   cdk synth
+   ```
+
 
 ## Full Command History
 
