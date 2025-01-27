@@ -1,4 +1,4 @@
-# Deploying a Cloudfront Simple Static Website on AWS with CDK and TypeScript
+# Deploying a Simple Static Website on AWS using S3 and Cloudfront
 
 This workshop sdemonstrates how to create and deploy a simple static website using AWS CDK with TypeScript. The project will cover:
 
@@ -19,7 +19,7 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 4. [Step 4: Generate AWS user credientials](#step-4-generate-aws-user-credientials)
 5. [Step 5: Deploy the website](#step-5-deploy-the-website)
 6. [Step 6: Update the S3 website to use Cloudfront and re-deploy](#step-6-update-the-s3-website-to-use-cloudfront-and-re-deploy)
-7. [Step 7: Update the S3 website to use Cloudfront and re-deploy](#step-7-extend-your-application-(optional))
+7. [Step 7: Extend your application (optional)](#step-7-extend-your-application-(optional))
 7. [Clean Up](#clean-up)
 8. [Conclusion](#conclusion)
 9. [Resources](#resources)
