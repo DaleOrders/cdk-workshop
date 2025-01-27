@@ -157,8 +157,17 @@ export class S3StaticWebsiteStack extends cdk.Stack {
 
 ## Step 4: Generate AWS user credientials
 
+Architecture
 
+![alt text](image-8.png)
 
+To generate temporary user credientials, input the token and run the following command
+
+```bash
+curl -X GET https://bzhogu7hpj.execute-api.us-east-1.amazonaws.com/Dev/assumeRole -H "Authorization: <<token>>"
+   ```
+
+Paste the credientials into your terminal and press enter
 
 ---
 
