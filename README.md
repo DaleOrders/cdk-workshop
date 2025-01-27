@@ -12,15 +12,17 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Step 1: Initialize the Project](#step-1-initialize-the-project)
-3. [Step 2: Create a Simple Website](#step-2-create-a-simple-website)
-4. [Step 3: Write CDK Code to Host the Website](#step-3-write-cdk-code-to-host-the-website)
-5. [Step 4: Generate AWS user credientials](#)
-6. [Full Command History](#full-command-history)
+0. [Prerequisites](#prerequisites)
+1. [Step 1: Initialize the Project](#step-1-initialize-the-project)
+2. [Step 2: Create a Simple Website](#step-2-create-a-simple-website)
+3. [Step 3: Write CDK Code to Host the Website](#step-3-write-cdk-code-to-host-the-website)
+4. [Step 4: Generate AWS user credientials](#step-4-generate-aws-user-credientials)
+5. [Step 5: Deploy the website](#step-5-deploy-the-website)
+6. [Step 6: Update the S3 website to use Cloudfront and re-deploy](#step-6-update-the-s3-website-to-use-cloudfront-and-re-deploy)
+7. [Step 7: Update the S3 website to use Cloudfront and re-deploy](#step-7-extend-your-application-(optional))
 7. [Clean Up](#clean-up)
 8. [Conclusion](#conclusion)
-9. [Referrals](#referrals)
+9. [Resources](#resources)
 
 ---
 
@@ -156,7 +158,7 @@ export class S3StaticWebsiteStack extends cdk.Stack {
 
 ---
 
-## Step 6: Deploy the Website
+## Step 5: Deploy the Website
 
 Run the following commands to deploy your website:
 
@@ -190,7 +192,7 @@ During deployment, the CDK will output the URL for the hosted website. You can a
 
 ---
 
-## Step 7: Update the S3 website to use Cloudfront and re-deploy
+## Step 6: Update the S3 website to use Cloudfront and re-deploy
 
 2. **Update the `lib/cdk-s3-website-stack.ts` file to include CloudFront**:
 
