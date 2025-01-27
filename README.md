@@ -44,27 +44,27 @@ npm install -g aws-cdk
 
 1. **Create a project directory** and navigate to it:
 
-   ```bash
-   mkdir cdk-workshop && cd cdk-workshop
+```bash
+mkdir cdk-workshop && cd cdk-workshop
    ```
 
 2. **Initialize a new CDK app**:
 
-   ```bash
-   cdk init app --language typescript
+```bash
+cdk init app --language typescript
    ```
 
 3. Update aws-cdk-lib to the latest version:
 
 
-   ```bash
-   npm install aws-cdk-lib@latest
+```bash
+npm install aws-cdk-lib@latest
    ```
 
 4. Install dependencies for the CDK constructs we'll use:
 
-   ```bash
-   3. npm install constructs@latest
+```bash
+npm install constructs@latest
    ```
 
 CDK Dependencies as shown in the package.json file
@@ -154,16 +154,16 @@ Run the following commands to deploy your website:
 
 1. **Bootstrap the environment**:
 
-   ```bash
-   cdk bootstrap
+```bash
+cdk bootstrap
    ```
 
 ![alt text](image-2.png)
 
 2. **Synthethize the cloudtemplate template**:
 
-   ```bash
-   cdk synth
+```bash
+cdk synth
    ```
 
 Go to the manifest file `cdk.out/CdkWorkshopStack.template.json` to see the cloudformation template.
@@ -172,10 +172,11 @@ Go to the manifest file `cdk.out/CdkWorkshopStack.template.json` to see the clou
 
 3. **Deploy the CDK application**:
 
-   ```bash
-   cdk deploy
+```bash
+cdk deploy
    ```
-Do you wish to deploy these changes (y/n)? type y
+
+You will be asked 'Do you wish to deploy these changes (y/n)?' Type y
 
 ![alt text](image-4.png)
 
@@ -185,14 +186,68 @@ During deployment, the CDK will output the URL for the hosted website. You can a
 
 ## Step 7: Update the S3 website to use Cloudfront and re-deploy
 
-2. **Synthethize the cloudtemplate template**:
+2. **Update the `lib/cdk-s3-website-stack.ts` file to include CloudFront**:
+
+```typescript
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { Bucket, BlockPublicAccess } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import { Distribution, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
+import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
+
+export class S3StaticWebsiteStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // Create an S3 bucket for the static website
+    const websiteBucket = new Bucket(this, 'StaticWebsiteBucket', {
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // Only for dev environments, not recommended for prod
+      autoDeleteObjects: true, // Automatically deletes objects when the bucket is destroyed (for dev environments)
+      blockPublicAccess: BlockPublicAccess.BLOCK_ACLS, // Block ACL-based public access
+    });
+
+    // Deploy local files to the S3 bucket
+    new BucketDeployment(this, 'DeployWebsite', {
+      sources: [Source.asset('./website')], // Path to your local website files
+      destinationBucket: websiteBucket,
+    });
+
+    // Create CloudFront distribution to serve content over HTTPS
+    const distribution = new Distribution(this, 'CloudFrontDistribution', {
+      defaultBehavior: {
+        origin: new S3Origin(websiteBucket),
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Enforce HTTPS
+      },
+      defaultRootObject: 'index.html', // Default page for the website
+    });
+
+    // Output the CloudFront URL (which will be HTTPS by default)
+    new cdk.CfnOutput(this, 'CloudFrontURL', {
+      value: `https://${distribution.domainName}`,
+      description: 'The CloudFront distribution URL',
+    });
+  }
+}
+
+```
+
+2. **Run cdk diff to compare differences**:
+
+cdk diff will show differences between your deployed stack and the new changes
 
    ```bash
-   cdk synth
+   cdk diff
    ```
 
+3. **Deploy the stack**:
 
-## Full Command History
+
+```bash
+cdk deploy
+   ```
+This will generate a HTTPS url for your stack website using cloudfront. Note HTTP access is disabled
+
 
 
 ---
@@ -208,6 +263,8 @@ To avoid incurring unnecessary charges, delete the stack. If the `cdk destroy` c
    ```
 
 2. **Destroy the stack**:
+
+
 
    ```bash
    cdk destroy
