@@ -16,7 +16,7 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 2. [Step 1: Initialize the Project](#step-1-initialize-the-project)
 3. [Step 2: Create a Simple Website](#step-2-create-a-simple-website)
 4. [Step 3: Write CDK Code to Host the Website](#step-3-write-cdk-code-to-host-the-website)
-5. [Step 4: Deploy the Website](#step-4-deploy-the-website)
+5. [Step 4: Generate AWS user credientials](#)
 6. [Full Command History](#full-command-history)
 7. [Clean Up](#clean-up)
 8. [Conclusion](#conclusion)
@@ -141,7 +141,7 @@ export class S3StaticWebsiteStack extends cdk.Stack {
 
 ---
 
-## Step 5: Run the following curl command to generate AWS user credientials
+## Step 4: Generate AWS user credientials
 
 
 
@@ -157,8 +157,6 @@ Run the following commands to deploy your website:
 ```bash
 cdk bootstrap
    ```
-
-![alt text](image-2.png)
 
 2. **Synthethize the cloudtemplate template**:
 
@@ -248,22 +246,26 @@ cdk deploy
    ```
 This will generate a HTTPS url for your stack website using cloudfront. Note HTTP access is disabled
 
-
-
 ---
+
+## Step 7: Extend your application (optional)
+
+Using the resources at the bottom of this tutorial try to do one of the following:
+
+- Logging for CloudFront: Enable CloudFront access logging to capture all requests made to your website, which can be useful for monitoring or auditing.
+
+- Web Application Firewall (WAF): Protect your website with AWS WAF by adding a WebACL to your CloudFront distribution.
+
+- Cache Control: Configure cache behavior for CloudFront to fine-tune caching of content (e.g., static vs. dynamic content).
+
+Reference: [AWS Construct Hub](https://constructs.dev/)
+
 
 ## Clean Up
 
-To avoid incurring unnecessary charges, delete the stack. If the `cdk destroy` command fails due to non-empty buckets, empty the bucket manually or use the `autoDeleteObjects` property in your stack as shown above:
+To avoid incurring unnecessary charges, delete the stack. 
 
-1. **Manually empty the bucket**:
-
-   ```bash
-   aws s3 rm s3://<bucket-name> --recursive
-   ```
-
-2. **Destroy the stack**:
-
+1. **Destroy the stack**:
 
 
    ```bash
@@ -280,12 +282,11 @@ This project demonstrated how to use AWS CDK with TypeScript to deploy a simple 
 
 <a name="referrals"></a>
 
-### Referrals
+### Resources
 
-- [AWS CDK Create Project](https://cdkworkshop.com/20-typescript/20-create-project/500-deploy.html)
-- [How to Add S3 BucketPolicy with AWS CDK](https://stackoverflow.com/questions/60310575/how-to-add-s3-bucketpolicy-with-aws-cdk)
-- [How to Force Delete a Non-Empty S3 Bucket with Versioning Enabled](https://stackoverflow.com/questions/62694166/how-to-force-delete-a-non-empty-s3-bucket-with-versioning-enabled)
+- [AWS CDK Guide ](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
+- [CDK Immersion Day workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/10141411-0192-4021-afa8-2436f3c66bd8/en-US)
+- [AWS Construct Hub](https://constructs.dev/)
 - [Debugging AWS CDK Errors](https://debugthis.dev/cdk/2020-07-08-aws-cdk-errors/)
-- Cover Image by [@glenncarstenspeters](https://unsplash.com/@glenncarstenspeters) from [Unsplash](https://unsplash.com/photos/person-using-macbook-pro-npxXWgQ33ZQ)
 
 ---

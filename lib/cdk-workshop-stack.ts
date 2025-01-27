@@ -11,11 +11,9 @@ export class S3StaticWebsiteStack extends cdk.Stack {
 
     // Create an S3 bucket for the static website
     const websiteBucket = new Bucket(this, 'StaticWebsiteBucket', {
-      websiteIndexDocument: 'index.html',
       removalPolicy: cdk.RemovalPolicy.DESTROY, // Only for dev environments, not recommended for prod
       autoDeleteObjects: true, // Automatically deletes objects when the bucket is destroyed (for dev environments)
       blockPublicAccess: BlockPublicAccess.BLOCK_ACLS, // Block ACL-based public access
-      publicReadAccess: true
     });
 
     // Deploy local files to the S3 bucket
@@ -24,25 +22,19 @@ export class S3StaticWebsiteStack extends cdk.Stack {
       destinationBucket: websiteBucket,
     });
 
-    // // Create CloudFront distribution to serve content over HTTPS using the default CloudFront domain
-    // const distribution = new Distribution(this, 'CloudFrontDistribution', {
-    //   defaultBehavior: {
-    //     origin: new S3Origin(websiteBucket),
-    //     viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Enforce HTTPS
-    //   },
-    //   defaultRootObject: 'index.html', // Default page for the website
-    // });
+    // Create CloudFront distribution to serve content over HTTPS
+    const distribution = new Distribution(this, 'CloudFrontDistribution', {
+      defaultBehavior: {
+        origin: new S3Origin(websiteBucket),
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS, // Enforce HTTPS
+      },
+      defaultRootObject: 'index.html', // Default page for the website
+    });
 
-    // Output the website URL
-    new cdk.CfnOutput(this, 'WebsiteURL', {
-      value: websiteBucket.bucketWebsiteUrl,
-      description: 'The website URL',});
-      
-    // // Output the CloudFront URL (which will be HTTPS by default)
-    // new cdk.CfnOutput(this, 'CloudFrontURL', {
-    //   value: `https://${distribution.domainName}`,
-    //   description: 'The CloudFront distribution URL',
-    //   exportName: 'CloudFrontURL',
-    // });
+    // Output the CloudFront URL (which will be HTTPS by default)
+    new cdk.CfnOutput(this, 'CloudFrontURL', {
+      value: `https://${distribution.domainName}`,
+      description: 'The CloudFront distribution URL',
+    });
   }
 }
