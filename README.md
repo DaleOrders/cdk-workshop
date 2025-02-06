@@ -99,13 +99,17 @@ cp -r ~/Downloads/html5up-dimension $(pwd)/website/
 
 Edit the `bin/cdk-workshop.ts` to explicity set the aws region to be ap-southeast-2:
 
+Your CDK stack name must be unqiue so update the name of the stack to your name (or something else unique). 
+
+In the example below I have used 'DaleCDKStack'
+
 ```typescript
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
 import { S3StaticWebsiteStack } from '../lib/cdk-workshop-stack';
 
 const app = new cdk.App();
-new S3StaticWebsiteStack (app, 'CdkWorkshopStack', {
+new S3StaticWebsiteStack (app, 'DaleCDKStack', {
 env: { region: 'ap-southeast-2' },
 });
 ```
