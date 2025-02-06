@@ -28,6 +28,10 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 
 ## Prerequisites
 
+Wifi:
+Network: Mantel-Guest
+Password: mantel2019
+
 Before starting, ensure you have the following installed:
 
 - **Node.js** (>= 14.x)
