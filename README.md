@@ -31,7 +31,7 @@ This workshop sdemonstrates how to create and deploy a simple static website usi
 Before starting, ensure you have the following installed:
 
 - **Node.js** (>= 14.x)
-- **AWS CLI** (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- **AWS CLI** (configures upon authorization)
 - **AWS CDK** (>= 2.x)
 
 To install AWS CDK globally:
@@ -277,13 +277,11 @@ This will generate a HTTPS url for your stack website using cloudfront. Note HTT
 
 ## Step 7: Extend your application (optional)
 
-Using the resources at the bottom of this tutorial try to do one of the following:
-
-- Logging for CloudFront: Enable CloudFront access logging to capture all requests made to your website, which can be useful for monitoring or auditing.
-
-- Web Application Firewall (WAF): Protect your website with AWS WAF by adding a WebACL to your CloudFront distribution.
-
-- Cache Control: Configure cache behavior for CloudFront to fine-tune caching of content (e.g., static vs. dynamic content).
+Now you know how to create and deploy a stack, try to do one of the following:
+* Use the AWS construct hub below to change some of the properities of the constructs you have in your stack
+* See if you can deploy multiples copies of your stack to the same region
+* See if you can deploy your stack to a different region
+* See if you can create a new stack with a bucket resource and deploy it
 
 Reference: [AWS Construct Hub](https://constructs.dev/)
 
